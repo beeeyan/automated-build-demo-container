@@ -1,2 +1,8 @@
-FROM dockersamples/static-site
-ENV AUTHOR="nekotokurasu"
+FROM ubuntu:18:04
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    file \
+    git && \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
