@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER beeeeyan
+LABEL maintainer beeeeyan
 #環境変数を設定
 ENV USER beeeeyan
 ENV HOME /home/${USER}
@@ -20,7 +20,7 @@ RUN apt-get update && \
     # 一般ユーザーのパスワードを設定
     echo "${USER}:password" | chpasswd && \
     # ログインシェルを指定
-    sed -i.bak -e "s/${HOME}:/${HOME}:${SHELL}" /etc/passwd
+    sed -i.bak -e s/${HOME}:/${HOME}:${SHELL} /etc/passwd
 
 # コマンドを実行するUSERを変更
 USER ${USER}
