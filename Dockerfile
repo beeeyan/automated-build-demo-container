@@ -8,6 +8,7 @@ ENV SHELL /bin/bash
 # 種々インストール
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    vim \
     build-essential \
     ca-certificates \
     curl \
@@ -20,7 +21,7 @@ RUN apt-get update && \
     # 一般ユーザーのパスワードを設定
     echo "${USER}:password" | chpasswd && \
     # ログインシェルを指定
-    sed -i.bak -e "s#${HOME}:##${HOME}:${SHELL}" /etc/passwd
+    sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd　&& \
 
 # コマンドを実行するUSERを変更
 USER ${USER}
