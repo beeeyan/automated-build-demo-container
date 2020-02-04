@@ -21,7 +21,7 @@ RUN apt-get update && \
     # 一般ユーザーのパスワードを設定
     echo "${USER}:password" | chpasswd && \
     # ログインシェルを指定
-    sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd　&& \
+    sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd
 
 # コマンドを実行するUSERを変更
 USER ${USER}
