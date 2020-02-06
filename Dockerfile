@@ -10,6 +10,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     vim \
     sudo \
+    expect \
     locales \
     build-essential \
     ca-certificates \
@@ -32,6 +33,8 @@ USER ${USER}
 # 作業ディレクトリを指定
 WORKDIR ${HOME}
 
+COPY enter.exp enter.exp
 # Linuxbrewをインストール
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
+RUN expect enter.exp && \
     echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH' >> .bash_profile
