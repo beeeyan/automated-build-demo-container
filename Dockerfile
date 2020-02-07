@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 LABEL maintainer beeeeyan
 #環境変数を設定
+ENV DEBIAN_FRONTEND=noninteractive
 ENV USER beeeeyan
 ENV HOME /home/${USER}
 ENV SHELL /bin/bash
