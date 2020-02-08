@@ -5,13 +5,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER beeeeyan
 ENV HOME /home/${USER}
 ENV SHELL /bin/bash
+ENV PWD password
 
 # 種々インストール
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     vim \
     sudo \
-    expect \
     locales \
     build-essential \
     ca-certificates \
@@ -23,7 +23,7 @@ RUN apt-get update && \
     # 一般ユーザーにsudo権限を付与
     gpasswd -a ${USER} sudo && \
     # 一般ユーザーのパスワードを設定
-    echo "${USER}:password" | chpasswd && \
+    echo "${USER}:${PWD}" | chpasswd && \
     # ログインシェルを指定
     sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd && \
     #　localの設定
@@ -34,8 +34,7 @@ USER ${USER}
 # 作業ディレクトリを指定
 WORKDIR ${HOME}
 
-COPY enter.exp enter.exp
 # Linuxbrewをインストール
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
-# RUN expect enter.exp && \
+# pathの設定
     echo 'export PATH=${HOME}/.linuxbrew/bin:$PATH' >> .bash_profile
