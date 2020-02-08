@@ -36,6 +36,6 @@ WORKDIR ${HOME}
 
 COPY enter.exp enter.exp
 # Linuxbrewをインストール
-# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
-RUN expect enter.exp && \
+RUN yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
+# RUN expect enter.exp && \
     echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH' >> .bash_profile
