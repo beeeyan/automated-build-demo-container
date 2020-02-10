@@ -1,9 +1,0 @@
-#!/usr/bin/env expect
-
-set timeout -1
-spawn sh -c "\"\$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)\""
-expect {
-    "==> Select the Homebrew installation directory" { send "\n"; exp_continue;}
-}
-
-expect eof

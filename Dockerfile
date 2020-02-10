@@ -11,7 +11,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     vim \
     sudo \
-    expect \
     locales \
     build-essential \
     ca-certificates \
@@ -27,15 +26,37 @@ RUN apt-get update && \
     # ログインシェルを指定
     sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd && \
     #　localの設定
-    locale-gen en_US.UTF-8
+    locale-gen en_US.UTF-8 && \
+    #　linuxbrewの「Alternative Installation」を実行
+    git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew && \
+    mkdir /home/linuxbrew/.linuxbrew/bin && \
+    ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin && \
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
+    #　一度、brew doctorを実行
+    brew doctor
 
 # コマンドを実行するUSERを変更
 USER ${USER}
 # 作業ディレクトリを指定
 WORKDIR ${HOME}
 
-COPY enter.exp enter.exp
-# Linuxbrewをインストール
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" && \
-# RUN expect enter.exp && \
-    echo 'export PATH=${HOME}/.linuxbrew/bin:$PATH' >> .bash_profile
+# Linuxbrew関連のフォルダ作成
+RUN sudo mkdir -p /home/linuxbrew/.linuxbrew/etc \
+    /home/linuxbrew/.linuxbrew/include /home/linuxbrew/.linuxbrew/lib \
+    /home/linuxbrew/.linuxbrew/opt /home/linuxbrew/.linuxbrew/sbin \
+    /home/linuxbrew/.linuxbrew/share \
+    /home/linuxbrew/.linuxbrew/var/homebrew/linked \
+    /home/linuxbrew/.linuxbrew/Cellar && \
+    # 権限変更
+    sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew/etc \
+    /home/linuxbrew/.linuxbrew/include \
+    /home/linuxbrew/.linuxbrew/lib \
+    /home/linuxbrew/.linuxbrew/opt \
+    /home/linuxbrew/.linuxbrew/sbin \
+    /home/linuxbrew/.linuxbrew/share \
+    /home/linuxbrew/.linuxbrew/var/homebrew/linked \
+    /home/linuxbrew/.linuxbrew/Cellar \
+    /home/linuxbrew/.linuxbrew/Homebrew /home/linuxbrew/.linuxbrew/bin \
+    /home/linuxbrew/.linuxbrew/var/homebrew/locks && \
+    # パスの設定
+    echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >> .bash_profile
