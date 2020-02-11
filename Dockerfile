@@ -31,9 +31,9 @@ RUN apt-get update && \
     git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew && \
     mkdir /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin && \
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     #　一度、brew doctorを実行
-    brew doctor
+    # brew doctor
 
 # コマンドを実行するUSERを変更
 USER ${USER}
