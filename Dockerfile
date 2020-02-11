@@ -32,9 +32,9 @@ RUN apt-get update && \
     git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew && \
     mkdir /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin && \
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && \
     #　一度、brew doctorを実行
-    # brew doctor
+    brew doctor
 
 # コマンドを実行するUSERを変更
 USER ${USER}
@@ -49,7 +49,7 @@ RUN echo ${PW} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/var/homebrew/linked \
     /home/linuxbrew/.linuxbrew/Cellar && \
     # 権限変更
-    echo ${PW} | sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew/etc \
+    echo ${PW} | sudo -S chown -R $(whoami) /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
