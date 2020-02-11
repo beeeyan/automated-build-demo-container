@@ -33,8 +33,6 @@ RUN apt-get update && \
     mkdir /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin && \
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    #　一度、brew doctorを実行
-    # brew doctor
 
 # コマンドを実行するUSERを変更
 USER ${USER}
@@ -42,7 +40,7 @@ USER ${USER}
 WORKDIR ${HOME}
 
 # Linuxbrew関連のフォルダ作成
-RUN sudo mkdir -p /home/linuxbrew/.linuxbrew/etc \
+RUN echo ${PWD} | sudo mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
