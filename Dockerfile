@@ -64,4 +64,8 @@ RUN echo ${PW} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/bin \
     /home/linuxbrew/.linuxbrew/var/homebrew/locks && \
     # パスの設定
-    echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >> .bash_profile
+    echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >> .bash_profile && \
+    # パスの反映
+    source .bash_profile && \
+    # brew doctorの実行
+    brew doctor
