@@ -66,6 +66,6 @@ RUN echo ${PW} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     # パスの設定
     echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >> .bash_profile && \
     # パスの反映
-    source .bash_profile && \
+    . ~/.bash_profile && \
     # brew doctorの実行
     brew doctor
