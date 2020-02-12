@@ -50,7 +50,7 @@ RUN echo ${PWD} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/var/homebrew/locks \
     /home/linuxbrew/.linuxbrew/Cellar && \
     # 権限変更
-    sudo chown -R $(USER) /home/linuxbrew/.linuxbrew/etc \
+    echo ${PWD} | sudo -S chown -R $(USER) /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
