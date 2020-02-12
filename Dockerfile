@@ -40,7 +40,7 @@ USER ${USER}
 WORKDIR ${HOME}
 
 # Linuxbrew関連のフォルダ作成
-RUN echo ${PWD} | sudo mkdir -p /home/linuxbrew/.linuxbrew/etc \
+RUN echo ${PWD} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
