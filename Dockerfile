@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER beeeeyan
 ENV HOME /home/${USER}
 ENV SHELL /bin/bash
-ENV PWD password
+ENV PW password
 
 # 種々インストール
 RUN apt-get update && \
@@ -23,7 +23,7 @@ RUN apt-get update && \
     # 一般ユーザーにsudo権限を付与
     gpasswd -a ${USER} sudo && \
     # 一般ユーザーのパスワードを設定
-    echo "${USER}:password" | chpasswd && \
+    echo "${USER}:${PW}" | chpasswd && \
     # ログインシェルを指定
     sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd && \
     #　localの設定
@@ -40,7 +40,7 @@ USER ${USER}
 WORKDIR ${HOME}
 
 # Linuxbrew関連のフォルダ作成
-RUN echo ${PWD} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
+RUN echo ${PW} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
@@ -50,7 +50,7 @@ RUN echo ${PWD} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/var/homebrew/locks \
     /home/linuxbrew/.linuxbrew/Cellar && \
     # 権限変更
-    echo ${PWD} | sudo -S chown -R ${USER} /home/linuxbrew/.linuxbrew/etc \
+    echo ${PW} | sudo -S chown -R ${USER} /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
