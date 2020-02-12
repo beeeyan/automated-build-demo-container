@@ -23,7 +23,7 @@ RUN apt-get update && \
     # 一般ユーザーにsudo権限を付与
     gpasswd -a ${USER} sudo && \
     # 一般ユーザーのパスワードを設定
-    echo "${USER}:${PWD}" | chpasswd && \
+    echo "${USER}:password" | chpasswd && \
     # ログインシェルを指定
     sed -i.bak -r s#${HOME}:\(.+\)#${HOME}:${SHELL}# /etc/passwd && \
     #　localの設定
@@ -50,7 +50,7 @@ RUN echo ${PWD} | sudo -S mkdir -p /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/var/homebrew/locks \
     /home/linuxbrew/.linuxbrew/Cellar && \
     # 権限変更
-    echo ${PWD} | sudo -S chown -R $(USER) /home/linuxbrew/.linuxbrew/etc \
+    echo ${PWD} | sudo -S chown -R ${USER} /home/linuxbrew/.linuxbrew/etc \
     /home/linuxbrew/.linuxbrew/include \
     /home/linuxbrew/.linuxbrew/lib \
     /home/linuxbrew/.linuxbrew/opt \
